@@ -42,6 +42,22 @@ class QuestionsController < ApplicationController
     redirect_to questions_path
   end
 
+  def solved
+    @questions = Question.where(solved: true)
+    render :index
+  end
+
+  def unsolved
+    @questions = Question.where(solved: false)
+    render :index
+  end
+
+  def solve
+    @question = current_user.questions.find(params[:id])
+    @question.update!(solved: true)
+    redirect_to question_path(@question), success: '解決済みにしました'
+  end
+
   private
 
   def question_params
