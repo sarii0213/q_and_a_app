@@ -1,0 +1,6 @@
+<tr>
+  <td><%= user.id %></td>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td><%= link_to '削除', admin_user_path(user), class: 'btn btn-danger btn-sm', data: { confirm: '削除しますか？' } %></td>
+</tr>

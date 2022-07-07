@@ -1,0 +1,35 @@
+<div class="col">
+  <div class="card card-info">
+    <div class="card-header">
+      <h3 class="card-title">管理画面ログインページ</h3>
+    </div>
+    <!-- /.card-header -->
+    <!-- form start -->
+    <!--  <form class="form-horizontal">-->
+    <%= form_with url: admin_login_path do |f| %>
+      <div class="card-body">
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-10">
+            <!--          <input type="email" class="form-control" id="inputEmail3" placeholder="Email">-->
+            <%= f.email_field :email, class: 'form-control', id: 'inputEmail3', placeholder: 'Email' %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+          <div class="col-sm-10">
+            <!--          <input type="password" class="form-control" id="inputPassword3" placeholder="Password">-->
+            <%= f.password_field :password, class: 'form-control', id: 'inputPassword3', placeholder: 'Password' %>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <%= f.submit 'ログイン', class: 'btn btn-info' %>
+      </div>
+      <!-- /.card-footer -->
+      <!--    </form>-->
+    <% end %>
+  </div>
+</div>
+<!-- /.col -->
