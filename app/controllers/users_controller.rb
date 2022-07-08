@@ -12,14 +12,13 @@ class UsersController < ApplicationController
     if @user.save 
       redirect_to new_user_path
     else
-      render :new
+      render 'users/index'
     end
   end
 
   private
 
-  def user_params 
-    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+  def user_params
+    params.require(:user).permit(:name, :email, :image, :password, :password_confirmation)
   end
-  
 end
