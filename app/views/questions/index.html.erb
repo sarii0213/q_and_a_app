@@ -3,15 +3,20 @@
   <%= link_to '未解決', unsolved_questions_path %>
   <%= link_to '解決', solved_questions_path %>
   <div class="mt-3 mb-3">
-    <%#= search_form_for @q do |f| %>
+    <%= search_form_for @q do |f| %>
 
-      <%#= f.label :title_cont %>
-      <%#= f.search_field :title_or_body_or_answers_body_cont %>
+      <%= f.label :title_cont %>
+      <%= f.search_field :title_or_body_or_answers_body_cont %>
 
-      <%#= f.submit %>
-    <%# end %>
+      <%= f.submit %>
+    <% end %>
   </div>
 
+  <div class="mb-3">
+    <%= paginate @questions %>
+    <%= page_entries_info @questions %>
+  </div>
+  <!-- /.mb-3 -->
   <ul>
     <% @questions.each do |question| %>
       <li>
