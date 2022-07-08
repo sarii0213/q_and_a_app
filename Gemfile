@@ -50,6 +50,7 @@ group :development do
   gem 'rspec-rails'
 
   gem 'htmlbeautifier'
+  gem 'letter_opener_web'
 end
 
 group :test do

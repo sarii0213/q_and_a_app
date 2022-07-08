@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   resources :users
 
   get '/login', to: 'sessions#new'
@@ -23,4 +25,6 @@ Rails.application.routes.draw do
     get '/login', to: 'sessions#new'
     post 'login', to: 'sessions#create'
   end
+
+
 end

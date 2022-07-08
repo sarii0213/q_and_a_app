@@ -15,6 +15,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.build(question_params) #associationを使って初期化する時はbuild
     if @question.save
+      QuestionMailer.notice_email(@question).deliver_now
       redirect_to question_path(@question), success: '質問を作成しました'
     else
       flash.now[:danger] = '失敗しました'
