@@ -15,7 +15,10 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.build(question_params) #associationを使って初期化する時はbuild
     if @question.save
-      QuestionMailer.notice_email(@question).deliver_now
+      receivers = User.where.not(id: @question.user_id)
+      receivers.each do |receiver|
+        QuestionMailer.notice_email(receiver: receiver, question: @question).deliver_now
+      end
       redirect_to question_path(@question), success: '質問を作成しました'
     else
       flash.now[:danger] = '失敗しました'
@@ -44,12 +47,14 @@ class QuestionsController < ApplicationController
   end
 
   def solved
-    @questions = Question.where(solved: true)
+    @q = Question.ransack(params[:q])
+    @questions = @q.result(distinct: true).where(solved: true).page(params[:page]).per(10)
     render :index
   end
 
   def unsolved
-    @questions = Question.where(solved: false)
+    @q = Question.ransack(params[:q])
+    @questions = @q.result(distinct: true).where(solved: false).page(params[:page]).per(10)
     render :index
   end
 

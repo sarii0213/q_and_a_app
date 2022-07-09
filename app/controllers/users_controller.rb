@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save 
-      redirect_to new_user_path
+      redirect_to questions_path, notice: 'サインアップが完了しました'
     else
       render 'users/index'
     end

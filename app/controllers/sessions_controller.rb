@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to questions_path
+      redirect_to questions_path, notice: 'ログインしました'
     else
       render :new
     end

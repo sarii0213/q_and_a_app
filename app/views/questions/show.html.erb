@@ -1,23 +1,30 @@
-<p>タイトル：<%= @question.title %></p>
-<p>質問内容：<%= @question.body %></p>
-<p>質問者： <%= @question.user.name %></p>
+<div id="question-area">
+  <p>タイトル：<%= @question.title %></p>
+  <p>質問内容：<%= @question.body %></p>
+  <p>質問者： <%= @question.user.name %></p>
 
-<% if @question.solved? %>
-  解決済み
-<% else %>
-  <% if @question.user_id == current_user.id %>
-    <%= link_to '解決済みにする', solve_question_path(@question), method: :post %>
+  <% if @question.solved? %>
+    <p>解決済み</p>
+  <% else %>
+    <p>未解決</p>
+    <% if @question.user_id == current_user.id %>
+      <%= link_to '解決済みにする', solve_question_path(@question), method: :post, data: { confirm: '解決済みにする' } %>
+      <%= link_to '編集', edit_question_path(@question) %>
+    <% end %>
   <% end %>
-<% end %>
+</div>
+<!-- /#question-area -->
+
 <h2>回答</h2>
 <%= form_with model: [@question, Answer.new] do |f| %>
+  <%= f.label :body, '回答内容' %>
   <%= f.text_area :body %>
-  <%= f.submit %>
+  <%= f.submit '回答する' %>
 <% end %>
 <h2>回答一覧</h2>
 <ul>
   <% @question.answers.each do |answer| %>
-    <li>
+    <li id=answer_<%= answer.id %>>
       <%= answer.body %>
       <% if answer.user_id == current_user.id %>
         <%= link_to '削除', question_answer_path(@question, answer), method: :delete, data: { confirm: '削除しますか？' } %>
